@@ -1,0 +1,28 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+# Local Docker RabbitMQ configuration
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: admin123
+  virtual-host: /
+  ssl:
+    enabled: false
+  exchange:
+    order: order.exchange
+  queue:
+    order:
+      created: order.created.queue
+  routing:
+    key:
+      order:
+        created: order.created
+
+logging:
+  level:
+    com.myorder.publisher: DEBUG
+    org.springframework.amqp: DEBUG

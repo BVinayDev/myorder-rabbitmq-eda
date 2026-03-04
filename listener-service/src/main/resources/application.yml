@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: listener-service
+
+server:
+  port: 8082
+
+# Default profile configuration
+rabbitmq:
+  host: ${RABBITMQ_HOST:localhost}
+  port: ${RABBITMQ_PORT:5672}
+  username: ${RABBITMQ_USERNAME:admin}
+  password: ${RABBITMQ_PASSWORD:admin123}
+  virtual-host: ${RABBITMQ_VHOST:/}
+  ssl:
+    enabled: ${RABBITMQ_SSL_ENABLED:false}
+  exchange:
+    order: ${RABBITMQ_ORDER_EXCHANGE:order.exchange}
+  queue:
+    order:
+      created: ${RABBITMQ_ORDER_CREATED_QUEUE:order.created.queue}
+      status: ${RABBITMQ_ORDER_STATUS_QUEUE:order.status.queue}
+  routing:
+    key:
+      order:
+        created: ${RABBITMQ_ORDER_CREATED_ROUTING_KEY:order.created}
+        status: ${RABBITMQ_ORDER_STATUS_ROUTING_KEY:order.status.updated}
+  listener:
+    concurrency: ${RABBITMQ_LISTENER_CONCURRENCY:3}
+    max-concurrency: ${RABBITMQ_LISTENER_MAX_CONCURRENCY:10}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.myorder.listener: INFO
+    org.springframework.amqp: DEBUG

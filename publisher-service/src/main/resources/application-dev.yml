@@ -1,0 +1,27 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+# Development/Amazon MQ configuration
+rabbitmq:
+  host: ${RABBITMQ_HOST}
+  port: ${RABBITMQ_PORT:5671}
+  username: ${RABBITMQ_USERNAME}
+  password: ${RABBITMQ_PASSWORD}
+  virtual-host: ${RABBITMQ_VHOST:/}
+  ssl:
+    enabled: true
+  exchange:
+    order: ${RABBITMQ_ORDER_EXCHANGE:order.exchange}
+  queue:
+    order:
+      created: ${RABBITMQ_ORDER_CREATED_QUEUE:order.created.queue}
+  routing:
+    key:
+      order:
+        created: ${RABBITMQ_ORDER_CREATED_ROUTING_KEY:order.created}
+
+logging:
+  level:
+    com.myorder.publisher: INFO
